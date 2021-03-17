@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.io.IOException;
 
 /**
+ * Example from: https://cs.lmu.edu/~ray/notes/javanetexamples/
+ *
  * A command line client for the date server. Requires the IP address of the
  * server as the sole argument. Exits after printing the response.
  */
