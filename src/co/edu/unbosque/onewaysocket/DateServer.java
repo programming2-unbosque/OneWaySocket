@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Example from: https://cs.lmu.edu/~ray/notes/javanetexamples/
@@ -28,13 +29,17 @@ public class DateServer {
             System.out.println("The date server is running...");
 
             while (true) {
+
                 // when server accepts a client, the communication for other clients remains blocked
                 // a Socket needs to be instantiated for handling in and out messages
                 try (var socket = listener.accept()) {
+
                     System.out.println("A new connection was stablished!");
+
                     // decoding to bytes and sending the message to the client
                     var out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(new Date().toString());
+
                 }
 
             }
