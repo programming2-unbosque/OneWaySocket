@@ -40,6 +40,9 @@ public class DateServer {
                     var out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(new Date().toString());
 
+                    var in = new Scanner(socket.getInputStream());
+                    System.out.println("The message from the client was: " + in.nextLine());
+
                 }
 
             }

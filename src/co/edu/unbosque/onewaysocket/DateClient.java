@@ -1,5 +1,7 @@
 package co.edu.unbosque.onewaysocket;
 
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Scanner;
 import java.net.Socket;
 import java.io.IOException;
@@ -22,11 +24,15 @@ public class DateClient {
 
         // a Socket is instantiated and a request for pairing with the server is sent
         // listening port on the server must be the same
-        var socket = new Socket(args[0], 59090);
+        var socket = new Socket("127.0.0.1", 59090);
 
         // getting and encoding from bytes the input stream
         var in = new Scanner(socket.getInputStream());
         System.out.println("Hi client, the current datetime is: " + in.nextLine());
+
+        System.out.println("Sending thanks message to the server.");
+        var out = new PrintWriter(socket.getOutputStream(), true);
+        out.println("Thanks! I receive the date");
 
     }
 }
