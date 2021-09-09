@@ -11,22 +11,25 @@ import java.util.Scanner;
  *
  * A simple TCP server. When a client connects, it sends the client the current
  * datetime, then closes the connection. This is arguably the simplest server
- * you can write. Beware though that a client has to be completely served its
+ * you can write.
+ *
+ * Beware though that a client has to be completely served its
  * date before the server will be able to handle another client.
  */
 public class DateServer {
+
+    static int PORT = 59090;
 
     public static void main(String[] args) throws IOException {
 
         // try-with-resources statement
         // in this way, the socket is automatically closed at the end of the block
-        try (
-                // local variable type inference
-                // a ServerSocket is created for listening on the specified port
-                var listener = new ServerSocket(59090)
-        ) {
+        // listener is a local variable type inference
+        // a ServerSocket is created for listening on the specified port
+        try (var listener = new ServerSocket(PORT)) {
 
-            System.out.println("The date server is running...");
+            System.out.format("The date server is running and listening on port %d...", PORT);
+            System.out.println("\n");
 
             while (true) {
 
@@ -38,10 +41,11 @@ public class DateServer {
 
                     // decoding to bytes and sending the message to the client
                     var out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println(new Date().toString());
+                    out.println("Hi client, the current datetime is: " + new Date().toString());
 
+                    // receiving a message back from the client
                     var in = new Scanner(socket.getInputStream());
-                    System.out.println("The message from the client was: " + in.nextLine());
+                    System.out.println("Client: " + in.nextLine());
 
                 }
 

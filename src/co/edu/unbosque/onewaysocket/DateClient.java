@@ -9,30 +9,26 @@ import java.io.IOException;
 /**
  * Example from: https://cs.lmu.edu/~ray/notes/javanetexamples/
  *
- * A command line client for the date server. Requires the IP address of the
- * server as the sole argument. Exits after printing the response.
+ * A command line client for consuming the date server. Exits after printing the response.
  */
 public class DateClient {
 
-    public static void main(String[] args) throws IOException {
+    static String IP = "127.0.0.1";
+    static int PORT = 59090;
 
-        // the server IP is required to stablish the connection
-        if (args.length != 1) {
-            System.err.println("Pass the server IP as the sole command line argument");
-            return;
-        }
+    public static void main(String[] args) throws IOException {
 
         // a Socket is instantiated and a request for pairing with the server is sent
         // listening port on the server must be the same
-        var socket = new Socket("127.0.0.1", 59090);
+        var socket = new Socket(IP, PORT);
 
         // getting and encoding from bytes the input stream
         var in = new Scanner(socket.getInputStream());
-        System.out.println("Hi client, the current datetime is: " + in.nextLine());
+        System.out.println("Server: " + in.nextLine());
 
-        System.out.println("Sending thanks message to the server.");
+        //System.out.println("Sending thanks message to the server.");
         var out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("Thanks! I receive the date");
+        out.println("Thanks server! I receive the datetime.");
 
     }
 }
