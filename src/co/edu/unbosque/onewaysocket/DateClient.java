@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.io.IOException;
 
 /**
- * Example from: https://cs.lmu.edu/~ray/notes/javanetexamples/
+ * Example based on: https://cs.lmu.edu/~ray/notes/javanetexamples/
  *
  * A command line client for consuming the date server. Exits after printing the response.
  */
@@ -17,18 +17,16 @@ public class DateClient {
     static int PORT = 59090;
 
     public static void main(String[] args) throws IOException {
-
-        // a Socket is instantiated and a request for pairing with the server is sent
-        // listening port on the server must be the same
+        // A Socket is instantiated and a request for pairing with the server is sent
+        // Listening port on the server must be the same
         var socket = new Socket(IP, PORT);
 
-        // getting and encoding from bytes the input stream
+        // Getting and encoding from bytes the input stream
         var in = new Scanner(socket.getInputStream());
-        System.out.println("Server: " + in.nextLine());
+        System.out.println("[Server] " + in.nextLine());
 
-        //System.out.println("Sending thanks message to the server.");
+        // Sending thanks message to the server
         var out = new PrintWriter(socket.getOutputStream(), true);
         out.println("Thanks server! I receive the datetime.");
-
     }
 }
